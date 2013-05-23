@@ -16,7 +16,7 @@ class UnionFind:
         find main root
         """
         while a != self.ids[a]:
-            #self.ids[a] = self.ids[self.ids[a]]
+            self.ids[a] = self.ids[self.ids[a]]
             a = self.ids[a]
         return a
     
