@@ -8,6 +8,7 @@ class UnionFind:
         """
 
         self.ids = [x for x in range(n)]
+        self.weights = [0 for x in range(n)]
 
     def root(self, a):
         """ ((UnionFind, int) -> int
@@ -15,10 +16,11 @@ class UnionFind:
         find main root
         """
         while a != self.ids[a]:
+            #self.ids[a] = self.ids[self.ids[a]]
             a = self.ids[a]
         return a
     
-    def linked(self, p, q):
+    def find(self, p, q):
         """ (UnionFind, int, int) -> bool
 
         Check connection between p and q
@@ -34,9 +36,14 @@ class UnionFind:
         
         rp = self.root(p)
         rq = self.root(q)
-        self.ids[rp] = rq
+        if self.weights[rp] < self.weights[rq]:
+            self.ids[rp] = rq
+            self.weights[rq] += self.weights[rp]
+        else:
+            self.ids[rq] = rp
+            self.weights[rp] += self.weights[rq]
 
 
 if __name__ == '__main__':
-    uf = UnionFind(20)
+    uf = UnionFind(2000000)
     uf.union(1,2)
